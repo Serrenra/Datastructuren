@@ -20,7 +20,7 @@ public class Loader {
 					throw new Exception();
 				}
 				for(int j = 0;j<9;j++) {
-					s[i][j] = str.charAt(j);
+					s[i][j] = Character.getNumericValue(str.charAt(j)); 
 				}
 				i++;
 			}
