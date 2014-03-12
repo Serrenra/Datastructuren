@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Sudoku {
 	JTable table;
@@ -20,6 +20,11 @@ public class Sudoku {
 
 	public Sudoku() {
 		sudoku = new int[9][9];
+		final int[][] mogelijkeWaardes = new int[9][9];
+		for(int[] x: mogelijkeWaardes) {
+			//Alle mogelijke waardes zijn bij instantieren 511. Dus 111111111.
+			Arrays.fill(x, 511);
+		}
 		JFrame frame = new JFrame("Sudoku");
 		final JPanel panel = new JPanel();
 		DefaultTableModel model = new DefaultTableModel(9, 9);
@@ -46,16 +51,17 @@ public class Sudoku {
 			public void actionPerformed(ActionEvent e) {
 				for (int row = 0; row < 9; row++) {
 					for (int column = 0; column < 9; column++) {
-						Object Value = table.getModel().getValueAt(row, column);
-						if (Value == null) {
-							//binary 511 = 111111111; Dus alle getallen mogelijk.
-							sudoku[row][column] = 511;
-						} else {
-							sudoku[row][column] = (int) Value;
+						Integer Value = (Integer) table.getModel().getValueAt(row, column);
+						if (Value == null || Value == 0) {
+							sudoku[row][column] = 0;
+						} else if(Value > 0 && Value <= 9){
+							//Er is al bepaald wat dit veld is dus mogelijkeWaardes zijn er niet meer.
+							mogelijkeWaardes[row][column] = 0;
+							sudoku[row][column] = Value;
 						}
 					}
 				}
-
+				
 			}
 
 		});
