@@ -61,7 +61,14 @@ public class Sudoku {
 						}
 					}
 				}
-				
+				//returnVal is aantal overgebleven 0 vakjes
+				int returnVal = solveSudoku(sudoku, mogelijkeWaardes);
+				if(returnVal == 0) {
+					//gelukt
+				}
+				else {
+					//unsolvable
+				}
 			}
 
 		});
@@ -83,7 +90,6 @@ public class Sudoku {
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-					
 				}
 			}	
 		});
@@ -118,5 +124,9 @@ public class Sudoku {
 			}
 		}
 		return s;
+	}
+	
+	private int solveSudoku(int[][] sudoku, int[][] mogelijkeWaardes) {
+		return 0;
 	}
 }
